@@ -12,11 +12,11 @@ con = duckdb .connect("data/exercises_sql_db.duckdb")
 # --------------------------------------------------------
 
 data = {
-    "theme" : ["cross joins","window functions"],
-    "exercises_name" : ["beverages and food","simple window"],
-    "tables" : [["beverages", "food_items"],"simple window"],
-    "last_reviewed" : ["2023-01-01","2023-01-01"],
-    "answer" : ["beverages_and_food.sql",'']
+    "theme" : ["cross joins","cross joins"],
+    "exercises_name" : ["beverages and food","trademarks and sizes"],
+    "tables" : [["beverages", "food_items"],["sizes", "trademarks"]],
+    "last_reviewed" : ["2023-01-02","2023-01-01"],
+    "answer" : ["beverages_and_food.sql",'trademarks_and_sizes.sql']
 }
 memory_state_df = pd.DataFrame(data)
 
@@ -29,6 +29,8 @@ con.execute("Create table if not exists memory_state as select * from memory_sta
 
 # --------------------------------------------------------
 
+
+#Exercice 1 Food and beverages
 CSV = """
 beverage,price
 orange juice,2.5
@@ -48,3 +50,24 @@ muffin,3
 food_items = pd.read_csv(io.StringIO(CSV2))
 
 con.execute("Create table if not exists food_items as select * from food_items ")
+
+#Exercise 2 sizes and trademarks
+sizes = """
+size
+XS
+M
+L
+XL
+"""
+sizes = pd.read_csv(io.StringIO(sizes))
+con.execute("Create table if not exists sizes as select * from sizes ")
+
+trademarks = """
+trademark
+Nike
+Asphalte
+Abercrombie
+Levis
+"""
+trademarks = pd.read_csv(io.StringIO(trademarks))
+con.execute("Create table if not exists trademarks as select * from trademarks ")

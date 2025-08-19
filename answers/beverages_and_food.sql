@@ -1,3 +1,3 @@
 SELECT *
-from beverages
-cross join food_items
+FROM beverages
+CROSS JOIN food_items

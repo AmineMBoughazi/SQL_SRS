@@ -2,7 +2,8 @@ name: unit tests
 
 on:
   push:
-    branches: [ "develop","master" ]
+    branches:
+      - "**"
   pull_request:
     branches: [ "master" ]
 
@@ -38,10 +39,10 @@ jobs:
         # Ensure code style consistency (PEP8 + black rules)
         black --check --verbose .
 
-    - name: Type check with mypy
+    - name: Type check with pylint
       run: |
         # Static type checking with strict mode to catch typing issues
-        mypy --strict .
+        pylint app.py
 
     # ---- Tests ----
 

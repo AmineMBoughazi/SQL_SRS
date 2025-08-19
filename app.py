@@ -1,4 +1,4 @@
-#pylint: disable=missing-module-docstring
+# pylint: disable=missing-module-docstring
 
 import io
 
@@ -49,7 +49,7 @@ solution_df = duckdb.sql(ANSWER_STRING).df()
 
 st.header("Enter your code:")
 query = st.text_input("Votre code SQL ici", key="user_input")
-result = None   # pylint: disable=invalid-name
+result = None  # pylint: disable=invalid-name
 
 if query:
     result = duckdb.query(query).df()

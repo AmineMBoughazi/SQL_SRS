@@ -3,12 +3,6 @@ import pandas as pd
 import duckdb
 import io
 
-st.write(
-"""
-#SQL SRS
-## SQL TRAINING APP
-""")
-
 csv = '''
 beverage,price
 orange juice,2.5
@@ -24,6 +18,24 @@ chocolatine,2
 muffin,3
 '''
 food_items = pd.read_csv(io.StringIO(csv2))
+
+
+with st.sidebar :
+    option = st.selectbox(
+        "What would you like to do?",
+        {"Joins","Group by","Window Function"},
+        index=None,
+        placeholder="Select an option",
+    )
+    if option :
+        st.write(option)
+
+st.header(
+"""
+#SQL SRS
+## SQL TRAINING APP
+""")
+
 
 answer = """
 SELECT * FROM beverages

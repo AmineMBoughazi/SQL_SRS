@@ -37,18 +37,35 @@ st.header(
 """)
 
 
-answer = """
+answer_string = """
 SELECT * FROM beverages
 CROSS JOIN food_items
 """
-solution = duckdb.sql(answer).df()
+solution_df = duckdb.sql(answer_string).df()
 
 st.header("Enter your code:")
 query = st.text_input("Votre code SQL ici", key ="user_input")
+result = None
 if query:
     result = duckdb.query(query).df()
     st.dataframe(result)
 
+    try :
+        result = result[solution_df.columns]
+    except KeyError as e:
+        st.write("some columns are missing")
+
+if result.shape[0] :
+    n_lignes_different = result.shape[0] - solution_df.shape[0]
+
+    if n_lignes_different != 0 :
+        st.write(
+            f"there are {n_lignes_different} lines differences with the solution"
+        )
+    try :
+        st.dataframe(result.compare(solution_df))
+    except ValueError as e :
+        st.write("some columns are missing")
 
 tab1,tab2 = st.tabs(["tables","solution"])
 
@@ -58,8 +75,8 @@ with tab1 :
     st.write("table : food_items")
     st.dataframe(food_items)
     st.write("expected")
-    st.dataframe(solution)
+    st.dataframe(solution_df)
 
 with tab2 :
     st.write("query : answer")
-    st.write(answer)
+    st.write(answer_string)
